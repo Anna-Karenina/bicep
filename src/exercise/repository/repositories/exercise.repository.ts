@@ -66,9 +66,9 @@ export class ExerciseRepository {
   }
 
   async update(exercise: Exercise): Promise<Exercise | PromiseLike<Exercise>> {
-   const updatedEntity = await this.exerciseRepository.save(
-    this.exerciseRepository.create(exercise)
-  );
-  return ExerciseMapper.toDomain(updatedEntity);
+    const updatedEntity = await this.exerciseRepository.save(
+      this.exerciseRepository.create(exercise),
+    );
+    return ExerciseMapper.toDomain(updatedEntity);
   }
 }

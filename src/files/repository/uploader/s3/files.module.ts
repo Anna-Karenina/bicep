@@ -16,7 +16,6 @@ import { RelationalFilePersistenceModule } from '../../relational-persistence.mo
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService<AllConfigType>) => {
-        
         const s3 = new S3Client({
           endpoint: configService.get('file.awsDefaultS3Url', { infer: true }),
           region: configService.get('file.awsS3Region', { infer: true }),

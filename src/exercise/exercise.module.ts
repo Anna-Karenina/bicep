@@ -10,7 +10,7 @@ import { FilesModule } from 'src/files/files.module';
 @Module({
   imports: [TypeOrmModule.forFeature([ExerciseEntity]), FilesModule],
   controllers: [ExerciseController],
-  providers: [ExerciseService,ExerciseRepository],
+  providers: [ExerciseService, ExerciseRepository],
   exports: [ExerciseService, ExerciseRepository],
 })
 export class ExerciseModule {}

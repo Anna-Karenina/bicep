@@ -8,14 +8,13 @@ import {
   Post,
   Query,
   SerializeOptions,
-  UploadedFile,
-  UseInterceptors,
 } from '@nestjs/common';
 
 import {
   ApiBody,
   ApiConsumes,
   ApiCreatedResponse,
+  ApiOkResponse,
   ApiParam,
   ApiResponse,
   ApiTags,
@@ -32,6 +31,7 @@ import { QueryExerciseDto } from './dto/query-exercise.dto';
 import { infinityPagination } from 'src/_utils/infinity-pagination';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AttachVideoDto } from './dto/attach-video.dto';
+import { ExerciseGroup } from 'src/exercise-group/domain/exercise-group';
 
 @ApiTags('Exercise')
 @Controller({
@@ -80,7 +80,7 @@ export class ExerciseController {
   }
 
   @SerializeOptions({ groups: ['admin'] })
-  @Get(':id')
+  @Get('/by-id/:id')
   @HttpCode(HttpStatus.OK)
   @ApiParam({
     name: 'id',
@@ -88,7 +88,7 @@ export class ExerciseController {
     required: true,
   })
   @ApiCreatedResponse({
-    description: 'The record has been successfully created.',
+    description: 'Return exercise by id',
     type: Exercise,
   })
   findOne(@Param('id') id: Exercise['id']): Promise<NullableType<Exercise>> {
@@ -97,7 +97,11 @@ export class ExerciseController {
 
   @Get('/muscle-groups')
   @HttpCode(HttpStatus.OK)
-  findExerciseGroups(): Promise<Array<String>> {
+  @ApiOkResponse({
+    description: 'Return list possible muscle groups',
+    type: ExerciseGroup,
+  })
+  findExerciseGroups(): Promise<Array<ExerciseGroup>> {
     return Promise.resolve(this.exerciseService.findExerciseGroups());
   }
 
@@ -107,7 +111,6 @@ export class ExerciseController {
     description: 'Returns exercise with video link',
     type: Exercise,
   })
-
   async attachExerciseVideo(
     @Body() attachVideoDto: AttachVideoDto,
   ): Promise<NullableType<Exercise>> {

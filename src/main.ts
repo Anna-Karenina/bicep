@@ -22,13 +22,9 @@ async function bootstrap() {
   app.enableShutdownHooks();
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
-    {
-      exclude: ['/'],
-    },
+    { exclude: ['/'] },
   );
-  app.enableVersioning({
-    type: VersioningType.URI,
-  });
+  app.enableVersioning({ type: VersioningType.URI });
   app.useGlobalPipes(new ValidationPipe(validationOptions));
   app.useGlobalInterceptors(
     // ResolvePromisesInterceptor is used to resolve promises in responses because class-transformer can't do it

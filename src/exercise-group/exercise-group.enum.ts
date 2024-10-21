@@ -6,3 +6,12 @@ export enum ExerciseGroupEnum {
   'triceps' = 5,
   'core' = 6,
 }
+
+export enum ReadableExerciseGroupEnum {
+  'legs' = 'legs',
+  'shoulders' = 'shoulders',
+  'chest' = 'chest',
+  'biceps' = 'biceps',
+  'triceps' = 'triceps',
+  'core' = 'core',
+}

@@ -25,6 +25,7 @@ export class ExerciseMapper {
       groups = exercise.groups.map((v) => {
         const g = new ExerciseGroupEntity();
         g.id = v.id;
+        g.name = v.name;
         return g;
       });
     }

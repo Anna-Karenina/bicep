@@ -10,11 +10,9 @@ import {
 } from 'class-validator';
 
 export class CreateWorkoutDto {
-  @ApiProperty({ example: new Date().toISOString() })
+  @ApiProperty({ example: new Date().toISOString(), description: 'ISO string' })
   @IsISO8601({ strict: false, strictSeparator: false })
   @Transform(({ value }) => {
-    console.log(value);
-
     const isValidDate = isISO8601(value, {
       strict: false,
       strictSeparator: false,
@@ -29,7 +27,7 @@ export class CreateWorkoutDto {
   @IsNotEmpty()
   startedAt: Date;
 
-  @ApiProperty({ example: new Date().setHours(new Date().getHours() + 1) })
+  @ApiProperty({ example: new Date().toISOString(), description: 'ISO string' })
   @IsISO8601({ strict: false, strictSeparator: false })
   @Transform(({ value }) => {
     const isValidDate = isISO8601(value, {
@@ -41,7 +39,6 @@ export class CreateWorkoutDto {
         `Property "endedAt" should be a valid ISO8601 date string`,
       );
     }
-    // return new Date(value);
     return value;
   })
   @IsNotEmpty()
